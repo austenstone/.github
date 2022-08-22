@@ -3,9 +3,9 @@ name: Release
 on:
   workflow_call:
     inputs:
-      dist:
+      artifact-name:
         default: 'dist'
-        required: true
+        required: false
         type: string
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v3
       with:
-        name: ${{ inputs.dist }}
+        name: ${{ inputs.artifact-name }}
     - uses: softprops/action-gh-release@v1
       with:
         files: .
