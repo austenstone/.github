@@ -28,10 +28,16 @@ jobs:
         with:
           name: ${{ inputs.artifact-name }}
           path: dist/${{ github.event.repository.name }}
+      - uses: docker/metadata-action@v4
+        id: meta
+        with:
+          images: |
+            miltonlaxer/${{ github.event.repository.name }}
+            ghcr.io/austenstone/${{ github.event.repository.name }}
       - uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: |
-            miltonlaxer/${{ github.event.repository.name }}
-            ghcr.io/austenstone/${{ github.event.repository.name }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
