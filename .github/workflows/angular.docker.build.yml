@@ -1,0 +1,20 @@
+name: Docker Build
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        default: 'my-image'
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact-name }}
+      - run: docker build . --file Dockerfile --tag ${{ inputs.tag }}

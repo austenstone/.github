@@ -1,0 +1,23 @@
+name: 🤔 Question
+description: Need help
+title: "[Question] "
+labels: [question]
+assignees:
+  - austenstone
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Question
+      description: Please leave your question and provide as much relevant information as possible.
+      placeholder: What's up?
+    validations:
+      required: true
+  # - type: checkboxes
+  #   id: terms
+  #   attributes:
+  #     label: Code of Conduct
+  #     description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/austenstone/.github/blob/main/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct)
+  #     options:
+  #       - label: I agree to follow this project's Code of Conduct
+  #         required: true

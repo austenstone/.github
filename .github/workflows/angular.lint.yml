@@ -1,15 +1,10 @@
-name: Build
+name: Lint
 
 on:
   workflow_call:
-    inputs:
-      out_dir:
-        default: 'dist'
-        required: true
-        type: string
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:
@@ -22,10 +17,4 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'npm'
       - uses: austenstone/.github/.github/actions/npm-ci-cache@main
-      - run: npm run build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: ${{ inputs.out_dir }}
-
-
+      - run: npm run lint
