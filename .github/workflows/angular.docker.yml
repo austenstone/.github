@@ -21,7 +21,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.artifact-name }}
-          path: dist/
+          path: dist/${{ github.event.repository.name }}
       - uses: docker/build-push-action@v3
         with:
           push: true
