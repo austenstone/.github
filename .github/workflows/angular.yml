@@ -29,6 +29,18 @@ jobs:
     if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/angular.pages.deploy.yml
 
+  build-docker:
+    name: Build 🐋⚒️
+    needs: [build, test, lint]
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/angular.docker.build.yml
+
+  deploy-docker:
+    name: Deploy Docker 🐳🚀
+    needs: [build, test, lint]
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/angular.docker.deploy.yml
+
   release:
     if: startsWith(github.ref, 'refs/tags/')
     needs: [build, test, lint]
