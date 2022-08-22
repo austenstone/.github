@@ -1,0 +1,27 @@
+name: Enhancement
+description: New feature or request
+title: "[Enhancement] "
+labels: [enhancement]
+assignees:
+  - austenstone
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to improve this project!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: How can we improve?
+      description: Provide as much detail as possible.
+      placeholder: Let's do it! 🚀
+    validations:
+      required: true
+  # - type: checkboxes
+  #   id: terms
+  #   attributes:
+  #     label: Code of Conduct
+  #     description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/austenstone/.github/blob/main/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct)
+  #     options:
+  #       - label: I agree to follow this project's Code of Conduct
+  #         required: true
