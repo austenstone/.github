@@ -1,13 +1,10 @@
-name: Setup / Install
-description: Setup Node.js and install dependencies
+name: NPM Cache Install
+description: NPM clean install with caching
 
 runs:
   using: "composite"
 
   steps:
-    - uses: actions/setup-node@v3
-      with:
-        cache: "npm"
     - uses: actions/cache@v3
       id: cache-nodemodules
       env:

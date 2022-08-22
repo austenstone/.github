@@ -7,8 +7,15 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 14, 16, 18 ]
 
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/node-setup-install
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+      - uses: ./.github/actions/npm-ci-cache
       - run: npm test
