@@ -6,9 +6,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     node: [ 14, 16, 18 ]
+    strategy:
+      matrix:
+        node: [ 14, 16, 18 ]
 
     steps:
       - uses: actions/checkout@v3
