@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: 'npm'
-      - uses: ./.github/actions/npm-ci-cache
+      - uses: austenstone/.github/.github/actions/npm-ci-cache@main
       - run: npm run build
       - uses: actions/upload-artifact@v3
         with:
