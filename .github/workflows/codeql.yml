@@ -27,9 +27,10 @@ jobs:
     steps:
       - uses: austenstone/list-repository-languages@main
         id: list-languages
+        with:
+          codeql: 'true'
     outputs:
       languages: ${{ steps.list-languages.outputs.languages }}
-      codeql: 'true'
 
   analyze:
     needs: [languages]
