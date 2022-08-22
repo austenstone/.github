@@ -29,6 +29,7 @@ jobs:
         id: list-languages
     outputs:
       languages: ${{ steps.list-languages.outputs.languages }}
+      codeql: 'true'
 
   analyze:
     needs: [languages]
