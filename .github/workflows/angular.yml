@@ -18,14 +18,19 @@ jobs:
     #     os: [ubuntu-latest, windows-latest, macos-latest]
     uses: ./.github/workflows/angular.test.yml
 
+  lint:
+    name: Lint 🧹
+    needs: [build]
+    uses: ./.github/workflows/angular.lint.yml
+
   deploy:
     name: Deploy 🚀
-    needs: [build, test]
+    needs: [build, test, lint]
     if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/angular.pages.deploy.yml
 
   release:
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [build, test]
+    needs: [build, test, lint]
     name: Release 🚢
     uses: ./.github/workflows/angular.release.yml
