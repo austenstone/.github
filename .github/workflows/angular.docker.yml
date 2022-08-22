@@ -33,5 +33,5 @@ jobs:
           context: .
           push: true
           tags: |
-            miltonlaxer/${{ github.event.repository.name }}:latest
-            ghcr.io/miltonlaxer/${{ github.event.repository.name }}:latest
+            miltonlaxer/${{ github.event.repository.name }}
+            ghcr.io/austenstone/${{ github.event.repository.name }}
