@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  run:
+  release:
     permissions:
       contents: write
     runs-on: ubuntu-latest
