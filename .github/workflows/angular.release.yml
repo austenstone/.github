@@ -2,6 +2,11 @@ name: Release
 
 on:
   workflow_call:
+    inputs:
+      dist:
+        default: 'dist'
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -13,7 +18,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v3
       with:
-        name: dist
+        name: ${{ inputs.dist }}
     - uses: softprops/action-gh-release@v1
       with:
         files: .

@@ -2,6 +2,11 @@ name: Deploy
 
 on:
   workflow_call:
+    inputs:
+      artifact-name:
+        default: 'dist'
+        required: true
+        type: string
 
 concurrency:
   group: "pages"
@@ -22,7 +27,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: dist
+          name: ${{ inputs.artifact-name }}
       - uses: actions/configure-pages@v1
       - uses: actions/upload-pages-artifact@v1
         with:
