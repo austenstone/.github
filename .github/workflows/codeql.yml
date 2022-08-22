@@ -33,6 +33,7 @@ jobs:
       languages: ${{ steps.list-languages.outputs.languages }}
 
   analyze:
+    if: "!contains(needs.languages.outputs.languages, '[]')"
     needs: [languages]
     name: Analyze
     runs-on: ubuntu-latest
