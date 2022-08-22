@@ -4,8 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  test:
-    name: Test
+  run:
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:

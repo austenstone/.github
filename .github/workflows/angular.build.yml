@@ -9,8 +9,7 @@ on:
         type: string
 
 jobs:
-  build:
-    name: Build
+  run:
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:
