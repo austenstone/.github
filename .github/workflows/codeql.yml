@@ -22,7 +22,16 @@ on:
     - cron: '33 14 * * 0'
 
 jobs:
+  languages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: austenstone/list-repository-languages@main
+        id: list-languages
+    outputs:
+      languages: ${{ steps.list-languages.outputs.languages }}
+
   analyze:
+    needs: [languages]
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
@@ -33,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ${{ fromJSON(steps.list-languages.outputs.languages) }}
+        language: ${{ fromJSON(needs.languages.outputs.languages) }}
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
