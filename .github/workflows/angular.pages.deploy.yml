@@ -5,7 +5,7 @@ on:
     inputs:
       artifact-name:
         default: 'dist'
-        required: true
+        required: false
         type: string
 
 concurrency:
