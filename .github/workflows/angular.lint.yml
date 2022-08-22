@@ -1,11 +1,11 @@
-name: Test
+name: Lint
 
 on:
   workflow_call:
 
 jobs:
-  test:
-    name: Test
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:
