@@ -8,12 +8,11 @@ on:
         required: false
         type: string
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
   deploy:
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
     permissions:
       contents: read
       pages: write
