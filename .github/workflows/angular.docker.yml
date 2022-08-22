@@ -22,6 +22,7 @@ jobs:
         with:
           name: ${{ inputs.artifact-name }}
           path: dist/${{ github.event.repository.name }}
+      - run: ls -al
       - uses: docker/build-push-action@v3
         with:
           push: true
