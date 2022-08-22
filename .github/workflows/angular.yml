@@ -29,17 +29,11 @@ jobs:
     if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/angular.pages.deploy.yml
 
-  build-docker:
-    name: Build 🐋⚒️
-    needs: [build, test, lint]
-    if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/angular.docker.build.yml
-
   deploy-docker:
-    name: Deploy Docker 🐳🚀
+    name: Docker 🐳
     needs: [build, test, lint]
     if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/angular.docker.deploy.yml
+    uses: ./.github/workflows/angular.docker.yml
     secrets: inherit
 
   release:
