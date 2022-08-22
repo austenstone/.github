@@ -49,8 +49,6 @@ jobs:
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
     steps:
-    - uses: austenstone/list-repository-languages@main
-      id: list-languages
     - name: Checkout repository
       uses: actions/checkout@v3
 
