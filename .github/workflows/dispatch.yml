@@ -19,9 +19,9 @@ jobs:
     steps:
       - name: "Dispatch Repos"
         run: |
-          repos=${{ env.REPOS }}
+          repos=${REPOS}
           for repo in "${repos[@]}"; do
-            gh workflow run --repo $repo build-test-deploy.yml
+            gh workflow run --repo $repo ${WORKFLOW}
           done
         shell: bash
         env:
