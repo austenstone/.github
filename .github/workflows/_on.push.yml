@@ -1,4 +1,4 @@
-name: "Dispatch"
+name: "Dispatch Updates"
 
 on:
   push:
@@ -7,3 +7,6 @@ on:
 jobs:
   dispatch:
     uses: ./.github/workflows/dispatch.yml
+    with:
+      repos: |
+        austenstone/angular-codespace
