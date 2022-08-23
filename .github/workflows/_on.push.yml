@@ -11,3 +11,4 @@ jobs:
       workflow: build-test-deploy.yml
       repos: |
         austenstone/angular-codespace
+      secrets: inherit

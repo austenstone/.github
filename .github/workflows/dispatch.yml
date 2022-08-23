@@ -20,6 +20,7 @@ jobs:
           ${{ inputs.repos }}
         )
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: "Dispatch Repos"
         run: |
@@ -28,3 +29,5 @@ jobs:
             gh workflow run --repo $repo $WORKFLOW
           done
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
