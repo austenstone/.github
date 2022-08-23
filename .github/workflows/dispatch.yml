@@ -8,9 +8,16 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     env:
-      REPOS: ("austenstone/angular-codespace")
+      REPOS: |
+        (
+          "austenstone/angular-codespace"
+        )
     steps:
-      - run: for i in "${REPOS[@]}";do gh workflow run --repo $i build-test-deploy.yml;done
+      - run: |
+          for repo in ${REPOS[*]}
+          do
+            gh workflow run --repo $repo build-test-deploy.yml
+          done
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
