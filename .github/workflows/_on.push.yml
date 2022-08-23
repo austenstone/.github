@@ -1,0 +1,9 @@
+name: "Dispatch"
+
+on:
+  push:
+  workflow_dispatch:  
+
+jobs:
+  dispatch:
+    uses: ./.github/workflows/dispatch.yml
