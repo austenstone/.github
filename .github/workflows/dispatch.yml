@@ -3,6 +3,13 @@ name: "Dispatch"
 on:
   push:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      repos:
+        default: austenstone/angular-codespace
+        required: false
+        type: string
+    
 
 jobs:
   dispatch:
@@ -10,10 +17,11 @@ jobs:
     env:
       REPOS: |
         (
-          "austenstone/angular-codespace"
+          ${{ inputs.repos }}
         )
     steps:
-      - run: |
+      - name: "Dispatch Repos"
+        run: |
           repos=${{ env.REPOS }}
           for repo in "${repos[@]}"; do
             gh workflow run --repo $repo build-test-deploy.yml
