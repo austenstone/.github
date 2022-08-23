@@ -37,7 +37,7 @@ jobs:
     secrets: inherit
 
   terraform:
-    name: 🐳
+    name: 🟣
     if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
     needs: [build, test, lint]
     uses: ./.github/workflows/angular.terraform.yml
