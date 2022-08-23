@@ -9,12 +9,12 @@ on:
       workflow:
         required: true
         type: string
-    
 
 jobs:
   dispatch:
     runs-on: ubuntu-latest
     env:
+      WORKFLOW: ${{ inputs.workflow }}
       REPOS: |
         (
           ${{ inputs.repos }}
@@ -22,10 +22,10 @@ jobs:
     steps:
       - name: "Dispatch Repos"
         run: |
-          repos=${REPOS}
+          repos=${{ env.REPOS }}
           for repo in "${repos[@]}"; do
-            gh workflow run --repo $repo ${WORKFLOW}
+            gh workflow run --repo $repo $WORKFLOW
           done
         shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN : ${{ secrets.GH_TOKEN }}
