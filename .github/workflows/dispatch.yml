@@ -10,6 +10,6 @@ jobs:
     steps:
       - run: |
           repos=("austenstone/angular-codespace")
-          for i in "${repos[@]}";gh workflow run --repo $i build-test-deploy.yml;done          
+          for i in "${repos[@]}";do gh workflow run --repo $i build-test-deploy.yml;done          
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
