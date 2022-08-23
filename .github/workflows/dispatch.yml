@@ -6,8 +6,8 @@ on:
   workflow_call:
     inputs:
       repos:
-        default: austenstone/angular-codespace
-        required: false
+        default: 'austenstone/angular-codespace'
+        required: true
         type: string
     
 
