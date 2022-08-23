@@ -2,10 +2,15 @@ name: Test
 
 on:
   workflow_call:
+    inputs:
+      os: 
+        default: 'ubuntu-latest'
+        required: false
+        type: string
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.os }}
     strategy:
       matrix:
         node: [ 14, 16, 18 ]
