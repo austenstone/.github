@@ -6,6 +6,9 @@ on:
       repos:
         required: true
         type: string
+      workflow:
+        required: true
+        type: string
     
 
 jobs:
