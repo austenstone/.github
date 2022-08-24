@@ -61,7 +61,7 @@ jobs:
       - run: echo "::set-output name=labels::${{ steps.meta.outputs.labels }}"
 
   trivy:
-    needs: [deploy]
+    needs: [docker]
     uses: ./.github/workflows/trivy.yml
     with:
       image-ref: ${{ join(needs.deploy.outputs.tags, ' ')[0] }}
