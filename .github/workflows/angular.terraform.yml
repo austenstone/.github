@@ -10,11 +10,10 @@ on:
 
 jobs:
   terraform:
+    runs-on: ubuntu-latest
     environment:
       name: azure
       url: ${{ steps.deployment.outputs.page_url }}
-    name: "Terraform"
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3

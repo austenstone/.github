@@ -59,3 +59,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
       - run: echo "::set-output name=tags::${{ steps.meta.outputs.tags }}"
       - run: echo "::set-output name=labels::${{ steps.meta.outputs.labels }}"
+
+  terraform:
+    needs: [deploy]
+    uses: ./.github/workflows/angular.terraform.yml
+    with:
+      image-ref: ${{ join(steps.meta.outputs.tags, ' ')[0] }}
+    secrets: inherit
