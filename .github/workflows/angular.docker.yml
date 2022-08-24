@@ -10,10 +10,10 @@ on:
     outputs:
       tags:
         description: "The first output string"
-        value: ${{ jobs.deploy.outputs.tags }}
+        value: ${{ jobs.docker.outputs.tags }}
       labels:
         description: "The first output string"
-        value: ${{ jobs.deploy.outputs.labels }}
+        value: ${{ jobs.docker.outputs.labels }}
 
 jobs:
   docker:
@@ -64,11 +64,11 @@ jobs:
     needs: [docker]
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ needs.deploy.outputs.tags }}"
+      - run: echo "${{ needs.docker.outputs.tags }}"
 
   trivy:
     needs: [docker]
     uses: ./.github/workflows/trivy.yml
     with:
-      image-ref: ${{ join(needs.deploy.outputs.tags, ' ')[0] }}
+      image-ref: ${{ join(needs.docker.outputs.tags, ' ')[0] }}
     secrets: inherit
