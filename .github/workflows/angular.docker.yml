@@ -7,6 +7,11 @@ on:
         default: 'dist'
         required: false
         type: string
+    outputs:
+      tags:
+        type: string
+      labels:
+        type: string
 
 jobs:
   deploy:
@@ -31,6 +36,13 @@ jobs:
       - uses: docker/metadata-action@v4
         id: meta
         with:
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+            type=sha,format=long
+            type=sha
           images: |
             miltonlaxer/${{ github.event.repository.name }}
             ghcr.io/austenstone/${{ github.event.repository.name }}
@@ -40,3 +52,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - run: echo "::set-output name=tags::${{ steps.meta.outputs.tags }}"
+      - run: echo "::set-output name=labels::${{ steps.meta.outputs.labels }}"
