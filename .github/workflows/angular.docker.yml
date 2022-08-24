@@ -16,7 +16,7 @@ on:
         value: ${{ jobs.deploy.outputs.labels }}
 
 jobs:
-  deploy:
+  docker:
     runs-on: ubuntu-latest
     outputs:
       tags: ${{ steps.meta.outputs.tags }}
@@ -60,7 +60,7 @@ jobs:
       - run: echo "::set-output name=tags::${{ steps.meta.outputs.tags }}"
       - run: echo "::set-output name=labels::${{ steps.meta.outputs.labels }}"
 
-  terraform:
+  trivy:
     needs: [deploy]
     uses: ./.github/workflows/trivy.yml
     with:
