@@ -63,7 +63,7 @@ jobs:
   triv:
     needs: [docker]
     steps:
-      run: echo "${{ needs.deploy.outputs.tags }}"
+      - run: echo "${{ needs.deploy.outputs.tags }}"
 
   trivy:
     needs: [docker]
