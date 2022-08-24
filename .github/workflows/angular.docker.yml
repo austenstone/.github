@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       artifact-name:
-        default: 'dist'
+        default: "dist"
         required: false
         type: string
     outputs:
@@ -59,6 +59,11 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
       - run: echo "::set-output name=tags::${{ steps.meta.outputs.tags }}"
       - run: echo "::set-output name=labels::${{ steps.meta.outputs.labels }}"
+
+  triv:
+    needs: [docker]
+    steps:
+      run: echo "${{ needs.deploy.outputs.tags }}"
 
   trivy:
     needs: [docker]
