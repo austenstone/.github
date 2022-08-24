@@ -47,7 +47,6 @@ jobs:
             type=ref,event=tag
             type=ref,event=pr
             type=sha,format=long
-            type=sha
           images: |
             miltonlaxer/${{ github.event.repository.name }}
             ghcr.io/austenstone/${{ github.event.repository.name }}
