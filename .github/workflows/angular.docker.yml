@@ -64,5 +64,5 @@ jobs:
     needs: [deploy]
     uses: ./.github/workflows/angular.terraform.yml
     with:
-      image-ref: ${{ join(steps.meta.outputs.tags, ' ')[0] }}
+      image-ref: ${{ join(needs.deploy.outputs.tags, ' ')[0] }}
     secrets: inherit
