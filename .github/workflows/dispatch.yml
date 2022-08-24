@@ -1,13 +1,33 @@
 name: "Dispatch"
 
 on:
-  push:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      repos:
+        required: true
+        type: string
+      workflow:
+        required: true
+        type: string
 
 jobs:
   dispatch:
     runs-on: ubuntu-latest
+    env:
+      WORKFLOW: ${{ inputs.workflow }}
+      REPOS: |
+        (
+          ${{ inputs.repos }}
+        )
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
-      - run: gh workflow run --repo austenstone/angular-codespace build-test-deploy.yml
+      - name: "Dispatch Repos"
+        run: |
+          repos=${{ env.REPOS }}
+          for repo in "${repos[@]}"; do
+            gh workflow run --repo $repo $WORKFLOW
+          done
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

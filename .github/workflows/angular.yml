@@ -5,39 +5,45 @@ on:
 
 jobs:
   build:
-    name: Build ⚒️
+    name: ⚒️
     uses: ./.github/workflows/angular.build.yml
     with:
       out_dir: dist/${{ github.event.repository.name }}
 
   test:
-    name: Test 🧪
+    name: 🧪
     needs: [build]
-    # strategy:
-    #   matrix:
-    #     os: [ubuntu-latest, windows-latest, macos-latest]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     uses: ./.github/workflows/angular.test.yml
 
   lint:
-    name: Lint 🧹
+    name: 🧹
     needs: [build]
     uses: ./.github/workflows/angular.lint.yml
 
   pages:
-    name: Pages 🚀
-    needs: [build, test, lint]
+    name: 🚀
     if: github.ref == 'refs/heads/main'
+    needs: [build, test, lint]
     uses: ./.github/workflows/angular.pages.deploy.yml
 
-  deploy-docker:
-    name: Docker 🐳
+  docker:
+    name: 🐳
     if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
     needs: [build, test, lint]
     uses: ./.github/workflows/angular.docker.yml
     secrets: inherit
 
+  terraform:
+    name: 🟣
+    needs: [build, test, lint]
+    uses: ./.github/workflows/angular.terraform.yml
+    secrets: inherit
+
   release:
-    name: Release 🚢
+    name: 🚢
     if: startsWith(github.ref, 'refs/tags/')
     needs: [build, test, lint]
     uses: ./.github/workflows/angular.release.yml
