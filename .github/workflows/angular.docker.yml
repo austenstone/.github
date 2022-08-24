@@ -9,13 +9,18 @@ on:
         type: string
     outputs:
       tags:
-        type: string
+        description: "The first output string"
+        value: ${{ jobs.deploy.outputs.tags }}
       labels:
-        type: string
+        description: "The first output string"
+        value: ${{ jobs.deploy.outputs.labels }}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      tags: ${{ steps.meta.outputs.tags }}
+      labels: ${{ steps.meta.outputs.labels }}
     steps:
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
