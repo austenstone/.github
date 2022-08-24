@@ -62,6 +62,7 @@ jobs:
 
   triv:
     needs: [docker]
+    runs-on: ubuntu-latest
     steps:
       - run: echo "${{ needs.deploy.outputs.tags }}"
 
