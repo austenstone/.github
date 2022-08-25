@@ -2,11 +2,6 @@ name: "Terraform"
 
 on:
   workflow_call:
-    inputs:
-      artifact-name:
-        default: 'dist'
-        required: false
-        type: string
     outputs:
       url:
         description: "The url of the resource"
@@ -29,9 +24,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
-        with:
-          name: ${{ inputs.artifact-name }}
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:

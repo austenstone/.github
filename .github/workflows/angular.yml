@@ -45,11 +45,20 @@ jobs:
   terraform-deploy:
     needs: [terraform]
     runs-on: ubuntu-latest
+    # uses: ./.github/workflows/angular.terraform.deploy.yml
+    # secrets: inherit
     steps:
       - run: echo ${{ needs.terraform.outputs.name }}
       - run: echo ${{ needs.terraform.outputs.url }}
-    # uses: ./.github/workflows/angular.terraform.deploy.yml
-    # secrets: inherit
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact-name }}
+      - uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_CLIENT_SECRET }}
+          action: upload
+          app_location: /dist
+          skip_app_build: true
 
   release:
     name: 🚢
