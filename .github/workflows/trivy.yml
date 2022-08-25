@@ -7,7 +7,7 @@ name: Trivy
 on:
   workflow_call:
     inputs:
-      image-ref:
+      image-ref: # truncated to a single line
         required: true
         type: string
 
