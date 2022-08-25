@@ -9,6 +9,9 @@ on:
       name:
         description: "The name of the resource"
         value: ${{ jobs.terraform-outputs.outputs.url }}
+      api_key:
+        description: "The name of the resource"
+        value: ${{ jobs.terraform-outputs.outputs.api_key }}
 
 jobs:
   terraform:
