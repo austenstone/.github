@@ -34,7 +34,7 @@ jobs:
   docker:
     name: 🐳
     if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
-    needs: [build, test, lint]
+    needs: [build]
     uses: ./.github/workflows/angular.docker.yml
     secrets: inherit
 
