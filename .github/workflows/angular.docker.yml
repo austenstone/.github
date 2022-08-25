@@ -21,7 +21,7 @@ env:
 jobs:
   docker-ghcr:
     environment:
-      name: docker
+      name: docker ghcr.io
       url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/pkgs/container/${{ github.event.repository.name }}
     runs-on: ubuntu-latest
     outputs:
