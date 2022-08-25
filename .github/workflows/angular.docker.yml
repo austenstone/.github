@@ -20,6 +20,9 @@ env:
 
 jobs:
   docker:
+    environment:
+      name: docker
+      url: https://hub.docker.com/r/${{ env.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
     runs-on: ubuntu-latest
     outputs:
       tags: ${{ steps.meta.outputs.tags }}
