@@ -2,17 +2,9 @@ name: Docker Build & Push
 description: "Builds and pushes a Docker image to Docker Hub & GitHub Package Registry"
 
 inputs:
-  username:
-    description: 'DockerHub username'
-    default: miltonlaxer
-    required: false
-  repo_owner:
-    description: 'Github repository owner'
-    default: ${{ github.event.repository.owner.login }}
-    required: false
-  repo:
-    description: 'GitHub token for ghcr.io'
-    default: ${{ github.event.repository.name }}
+  images:
+    description: 'images'
+    default: ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}
     required: false
 outputs:
   tags:
@@ -35,9 +27,7 @@ runs:
           type=ref,event=tag
           type=ref,event=pr
           type=sha,format=long
-        images: |
-          ${{ inputs.username }}/${{ inputs.repo }}
-          ghcr.io/${{ inputs.repo_owner }}/${{ inputs.repo }}
+        images: ${{ inputs.images }}
     - uses: docker/build-push-action@v3
       with:
         context: .

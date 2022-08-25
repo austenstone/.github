@@ -63,6 +63,8 @@ jobs:
           name: ${{ inputs.artifact-name }}
           path: dist/${{ github.event.repository.name }}
       - uses: austenstone/.github/.github/actions/docker-build-push@main
+        with:
+          images: ${{ env.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
 
   # trivy:
   #   needs: [docker]
