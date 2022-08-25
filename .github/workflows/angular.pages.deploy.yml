@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  deploy:
+  pages:
     concurrency:
       group: "pages"
       cancel-in-progress: true
