@@ -15,8 +15,10 @@ jobs:
     needs: [build]
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        runs-on: [ubuntu-latest, windows-latest, macos-latest]
     uses: ./.github/workflows/angular.test.yml
+    with:
+      runs-on: ${{ matrix.runs-on }}
 
   lint:
     name: 🧹
