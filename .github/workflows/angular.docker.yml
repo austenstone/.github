@@ -65,9 +65,9 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  trivy:
-    needs: [docker]
-    uses: ./.github/workflows/trivy.yml
-    with:
-      image-ref: ${{ needs.docker.outputs.tags }}
-    secrets: inherit
+  # trivy:
+  #   needs: [docker]
+  #   uses: ./.github/workflows/trivy.yml
+  #   with:
+  #     image-ref: ${{ needs.docker.outputs.tags }}
+  #   secrets: inherit
