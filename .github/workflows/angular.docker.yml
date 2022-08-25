@@ -22,7 +22,7 @@ jobs:
 
   docker:
     environment:
-      name: docker
+      name: DockerHub
       url: https://hub.docker.com/r/${{ env.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
     runs-on: ubuntu-latest
     outputs:
@@ -46,7 +46,7 @@ jobs:
 
   docker-ghcr:
     environment:
-      name: docker ghcr.io
+      name: GitHub Container Registry
       url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/pkgs/container/${{ github.event.repository.name }}
     runs-on: ubuntu-latest
     outputs:
