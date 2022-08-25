@@ -5,13 +5,13 @@ on:
     outputs:
       url:
         description: "The url of the resource"
-        value: ${{ jobs.terraform.outputs.url }}
+        value: ${{ jobs.terraform.steps.terraform-outputs.outputs.outputs.url }}
       name:
         description: "The name of the resource"
-        value: ${{ jobs.terraform.outputs.url }}
+        value: ${{ jobs.terraform.steps.terraform-outputs.outputs.outputs.name }}
       api_key:
         description: "The name of the resource"
-        value: ${{ jobs.terraform.outputs.api_key }}
+        value: ${{ jobs.terraform.steps.terraform-outputs.outputs.outputs.api_key }}
 
 jobs:
   terraform:
