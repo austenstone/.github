@@ -61,6 +61,7 @@ jobs:
     with:
       app-name: ${{ github.event.repository.name }}
       images: ${{ needs.docker.outputs.tags }}
+    secrets: inherit
 
   release:
     name: 🚢
