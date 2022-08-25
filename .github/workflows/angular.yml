@@ -43,7 +43,6 @@ jobs:
     secrets: inherit
 
   terraform-deploy:
-    name: 🟣2
     needs: [terraform]
     runs-on: ubuntu-latest
     steps:

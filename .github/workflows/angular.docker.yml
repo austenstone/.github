@@ -71,5 +71,5 @@ jobs:
     needs: [docker]
     uses: ./.github/workflows/trivy.yml
     with:
-      image-ref: ${{ join(needs.docker.outputs.tags, '\n')[0] }}
+      image-ref: needs.docker.outputs.tags
     secrets: inherit
