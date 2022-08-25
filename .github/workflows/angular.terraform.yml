@@ -5,13 +5,13 @@ on:
     outputs:
       url:
         description: "The url of the resource"
-        value: ${{ jobs.terraform.steps.terraform-outputs.outputs.outputs.url }}
+        value: ${{ jobs.terraform.outputs.url }}
       name:
         description: "The name of the resource"
-        value: ${{ jobs.terraform.steps.terraform-outputs.outputs.outputs.name }}
+        value: ${{ jobs.terraform.outputs.name }}
       api_key:
         description: "The name of the resource"
-        value: ${{ jobs.terraform.steps.terraform-outputs.outputs.outputs.api_key }}
+        value: ${{ jobs.terraform.outputs.api_key }}
 
 jobs:
   terraform:
@@ -24,6 +24,10 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+    outputs:
+      url: ${{ steps.step1.outputs.url }}
+      name: ${{ steps.step2.outputs.name }}
+      api_key: ${{ steps.step2.outputs.api_key }}
 
     steps:
       - uses: actions/checkout@v3
