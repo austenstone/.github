@@ -26,10 +26,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.artifact-name }}
-      - uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+      # - uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: az login --service-principal -u $(echo "${{ secrets.AZURE_CREDENTIALS }}" | jq '.clientId') -p $(echo "${{ secrets.AZURE_CREDENTIALS }}" | jq '.clientSecret') --tenant $(echo "${{ secrets.AZURE_CREDENTIALS }}" | jq '.tenantId')
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
