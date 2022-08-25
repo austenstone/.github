@@ -42,25 +42,13 @@ jobs:
     uses: ./.github/workflows/angular.terraform.yml
     secrets: inherit
 
-  terraform-deploy:
+  azure-deploy:
+    name: ☁️
     if: needs.terraform.outputs.api_key
-    # uses: ./.github/workflows/angular.terraform.deploy.yml
-    # secrets: inherit
     needs: [terraform]
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "${{ needs.terraform.outputs.url }}"
-      - run: echo "${{ needs.terraform.outputs.name }}"
-      - run: echo "${{ needs.terraform.outputs.api_key }}"
-      - uses: actions/download-artifact@v3
-        with:
-          name: ${{ inputs.artifact-name }}
-      - uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ needs.terraform.outputs.api_key }}
-          action: upload
-          app_location: .
-          skip_app_build: true
+    uses: ./.github/workflows/angular.azure.deploy.yml
+    with:
+      api_key: ${{ needs.terraform.outputs.api_key }}
 
   release:
     name: 🚢
