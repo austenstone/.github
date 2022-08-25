@@ -16,9 +16,6 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    environment:
-      name: azure
-      url: https://${{ steps.terraform-outputs.outputs.url }}
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}

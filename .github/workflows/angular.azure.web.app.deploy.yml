@@ -17,12 +17,16 @@ on:
 jobs:
   azure-web-app:
     runs-on: ubuntu-latest
+    environment:
+      name: Azure Web App
+      url: ${{ steps.azure-deploy.outputs.webapp-url }}
     steps:
       - name: Azure authentication
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - uses: azure/webapps-deploy@v2
+        id: azure-deploy
         with:
           app-name: ${{ inputs.app-name }}
           images: ${{ inputs.image }}
