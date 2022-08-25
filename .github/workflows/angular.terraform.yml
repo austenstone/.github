@@ -89,7 +89,6 @@ jobs:
       - name: Terraform Outputs
         id: terraform-outputs
         run: |
-          echo "::set-output name=url::$(terraform output -raw url)
-          echo "::set-output name=name::$(terraform output -raw name)
-          echo "::set-output name=api_key::$(terraform output -raw api_key)
-          
+          echo "::set-output name=url::$(terraform output -raw url)"
+          echo "::set-output name=name::$(terraform output -raw name)"
+          echo "::set-output name=api_key::$(terraform output -raw api_key)"
