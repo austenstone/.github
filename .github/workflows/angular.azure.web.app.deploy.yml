@@ -7,10 +7,7 @@ on:
         default: '${{ github.event.repository.name }}'
         required: false
         type: string
-      publish-profile:
-        required: true
-        type: string
-      image:
+      images:
         required: true
         type: string
 
@@ -29,4 +26,4 @@ jobs:
         id: azure-deploy
         with:
           app-name: ${{ inputs.app-name }}
-          images: ${{ inputs.image }}
+          images: ${{ inputs.images }}
