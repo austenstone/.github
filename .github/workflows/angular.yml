@@ -43,11 +43,14 @@ jobs:
     secrets: inherit
 
   terraform-deploy:
-    needs: [terraform]
-    runs-on: ubuntu-latest
     # uses: ./.github/workflows/angular.terraform.deploy.yml
     # secrets: inherit
+    needs: [terraform]
+    runs-on: ubuntu-latest
     steps:
+      - run: echo "${{ needs.terraform.outputs.url }}"
+      - run: echo "${{ needs.terraform.outputs.name }}"
+      - run: echo "${{ needs.terraform.outputs.api_key }}"
       - uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.artifact-name }}
