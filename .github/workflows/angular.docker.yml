@@ -39,11 +39,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.artifact-name }}
           path: dist/${{ github.event.repository.name }}
+
       - uses: docker/metadata-action@v4
         id: meta
         with:
@@ -62,7 +64,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      - run: echo "${{ steps.meta.outputs.tags }}"
 
   trivy:
     needs: [docker]
