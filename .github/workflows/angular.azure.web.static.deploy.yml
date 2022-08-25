@@ -12,7 +12,7 @@ on:
         type: string
 
 jobs:
-  azure-deploy:
+  azure-web-static:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
