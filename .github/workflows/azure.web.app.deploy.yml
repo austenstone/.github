@@ -1,0 +1,28 @@
+name: Azure Web App Deploy
+
+on:
+  workflow_call:
+    inputs:
+      app-name:
+        default: '${{ github.event.repository.name }}'
+        required: false
+        type: string
+      publish-profile:
+        required: true
+        type: string
+      image:
+        required: true
+        type: string
+
+jobs:
+  azure-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Azure authentication
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ inputs.app-name }}
+          images: ${{ inputs.image }}

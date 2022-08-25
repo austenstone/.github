@@ -1,4 +1,4 @@
-name: Azure Deploy
+name: Azure Static Site Deploy
 
 on:
   workflow_call:
