@@ -7,6 +7,13 @@ on:
         default: 'dist'
         required: false
         type: string
+    outputs:
+      url:
+        description: "The url of the resource"
+        value: ${{ jobs.terraform-outputs.outputs.url }}
+      name:
+        description: "The name of the resource"
+        value: ${{ jobs.terraform-outputs.outputs.url }}
 
 jobs:
   terraform:
@@ -27,6 +34,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
 
       - name: Terraform Format
         id: fmt
@@ -82,3 +90,9 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+
+      - name: Terraform Outputs
+        id: terraform-outputs
+        run: |
+          echo "::set-output name=url::$(terraform output -raw url)
+          echo "::set-output name=name::$(terraform output -raw name)
