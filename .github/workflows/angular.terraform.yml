@@ -5,20 +5,20 @@ on:
     outputs:
       url:
         description: "The url of the resource"
-        value: ${{ jobs.terraform-outputs.outputs.url }}
+        value: ${{ jobs.terraform.outputs.url }}
       name:
         description: "The name of the resource"
-        value: ${{ jobs.terraform-outputs.outputs.url }}
+        value: ${{ jobs.terraform.outputs.url }}
       api_key:
         description: "The name of the resource"
-        value: ${{ jobs.terraform-outputs.outputs.api_key }}
+        value: ${{ jobs.terraform.outputs.api_key }}
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
     environment:
       name: azure
-      url: ${{ jobs.terraform-outputs.outputs.url }}
+      url: ${{ steps.terraform-outputs.outputs.url }}
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
