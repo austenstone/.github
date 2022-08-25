@@ -43,6 +43,7 @@ jobs:
     secrets: inherit
 
   terraform-deploy:
+    if: needs.terraform.outputs.api_key
     # uses: ./.github/workflows/angular.terraform.deploy.yml
     # secrets: inherit
     needs: [terraform]
