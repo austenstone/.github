@@ -40,7 +40,7 @@ jobs:
 
   terraform:
     name: 🟣
-    needs: [build, test, lint]
+    needs: [build, test, lint, docker]
     uses: ./.github/workflows/angular.terraform.yml
     secrets: inherit
 
@@ -55,7 +55,7 @@ jobs:
   azure-deploy-docker:
     name: ☁️🐳
     if: needs.terraform.outputs.api_key
-    needs: [terraform, docker]
+    needs: [terraform]
     uses: ./.github/workflows/angular.azure.web.app.deploy.yml
     with:
       app-name: ${{ github.event.repository.name }}
