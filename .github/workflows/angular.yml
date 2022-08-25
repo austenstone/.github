@@ -40,7 +40,7 @@ jobs:
 
   terraform:
     name: 🟣
-    needs: [docker]
+    needs: [docker, test, lint]
     uses: ./.github/workflows/angular.terraform.yml
     secrets: inherit
 
