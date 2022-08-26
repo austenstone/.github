@@ -26,7 +26,7 @@ Reuse workflows across multiple repositories by calling them.
 - add the `workflow_call` as a workflow trigger.
 - reference the workflow from another workflow using `uses: USER_OR_ORG_NAME/REPO_NAME/.github/workflows/REUSABLE_WORKFLOW_FILE.yml@TAG_OR_BRANCH`
 
-## Good For
+### Good For
 - Syncing many repos that are essentially built or developed in the same way.
 - Ensure certain steps are followed for a specific deployment type.
 - Implementing OIDC
