@@ -59,7 +59,7 @@ jobs:
     needs: [terraform]
     uses: ./.github/workflows/angular.azure.web.app.deploy.yml
     with:
-      app-name: ${{ terraform.outputs.app_name }}
+      app-name: ${{ needs.terraform.outputs.app_name }}
       images: ${{ needs.docker.outputs.tags }}
     secrets: inherit
 
