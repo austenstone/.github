@@ -125,6 +125,15 @@ that is, the top-level caller workflow and up to three levels of reusable workfl
 - Implementing OIDC
 - Abstracting away complexity
 
+## Key differences between reusable workflows and composite actions
+| Reusable workflows  | Composite actions |
+| ------------- | ------------- |
+| Cannot call another reusable workflow  | Can be nested to have up to 10 composite actions in one workflow  |
+| Can use secrets  | Cannot use secrets  |
+| Can use if: conditionals | Cannot use if: conditionals |
+| Can be stored as normal YAML files in your project | Requires individual folders for each composite action |
+| Can use multiple jobs | Cannot use multiple jobs |
+| Each step is logged in real-time | Logged as one step even if it contains multiple steps |
 
 ## News
 - [GitHub Actions: Improvements to reusable workflows](https://github.blog/changelog/2022-08-22-github-actions-improvements-to-reusable-workflows-2/)
