@@ -3,11 +3,12 @@
 A workflow is a configurable automated process that will run one or more jobs. Workflows are defined by a YAML file checked in to your repository and will run when triggered by an event in your repository, or they can be triggered manually, or at a defined schedule.
 
 #### Why?
-- Eaier to maintain
+- Easier to maintain
 - Create workflows more quickly
-- Avoid duplication. DRY(don't repear yourself).
+- Avoid duplication. DRY(don't repeat yourself).
 - Build consistently across multiple, dozens, or even hundreds of repositories
 - Require specific workflows for specific deployments
+- Promotes best practices
 
 ### [Composite Actions](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action)
 
@@ -25,12 +26,99 @@ A composite action allows you to combine multiple workflow steps within one acti
 
 Rather than copying and pasting from one workflow to another, you can make workflows reusable. You and anyone with access to the reusable workflow can then call the reusable workflow from another workflow.
 
-#### How?
-- Modify the repo settings so the workflows are accessible to the rest of the org.
-- Add the `workflow_call` as a workflow trigger.
-- Reference the workflow from another workflow using `uses: USER_OR_ORG_NAME/REPO_NAME/.github/workflows/REUSABLE_WORKFLOW_FILE.yml@TAG_OR_BRANCH`
+### Create a Reusable Workflow
+Create a workflow (eg: `.github/workflows/reusable-workflow.yml`). See [Creating a Workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file).
 
-#### Good For
+Add the [`workflow_call`](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_call) as a workflow trigger (You can also add other workflow triggers, such as `pull_request` or `push`).
+
+Reference the workflow from another workflow using `uses: USER_OR_ORG_NAME/REPO_NAME/.github/workflows/REUSABLE_WORKFLOW_FILE.yml@TAG_OR_BRANCH`.
+
+#### Using inputs and secrets
+
+You can use inputs and secrets to pass values to the reusable workflow.
+
+##### Secrets
+When calling the reusable workflow pass [`secrets: intherit`](https://docs.github.com/en/actions/using-workflows/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow) to pass all secrets to the reusable workflow.
+
+```yml
+jobs:
+  call-workflow-with-secrets:
+    uses: octo-org/example-repo/.github/workflows/reusable-workflow.yml@main
+    secrets: inherit
+```
+
+##### Inputs
+
+You can define inputs that can be passed to the reusable workflow.
+
+```yml
+on:
+  workflow_call:
+    inputs:
+      username:
+        default: 'octocat'
+        required: true
+        type: string
+jobs:
+  example_job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello ${{ inputs.username }}"
+```
+
+Pass down the inputs using `with`.
+
+```yml
+jobs:
+  call-workflow-with-secrets:
+    uses: octo-org/example-repo/.github/workflows/reusable-workflow.yml@main
+    with:
+        username: octocat
+```
+
+##### Outputs
+
+You can define outputs that can be returned from the reusable workflow.
+
+```yml
+on:
+  workflow_call:
+    outputs:
+      firstword:
+        description: "The first output string"
+        value: ${{ jobs.example_job.outputs.output1 }}
+
+jobs:
+  example_job:
+    name: Generate output
+    runs-on: ubuntu-latest
+    # Map the job outputs to step outputs
+    outputs:
+      output1: ${{ steps.step1.outputs.firstword }}
+    steps:
+      - id: step1
+        run: echo "::set-output name=firstword::hello"
+```
+
+Use the outputs field to get variables.
+
+```yml
+jobs:
+  call-workflow:
+    uses: octo-org/example-repo/.github/workflows/reusable-workflow.yml@main
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ jobs.call-workflow.outputs.firstword }}"
+```
+
+#### Nesting
+
+You can nest reusable workflows up to four levels deep. Loops are not permitted.
+
+that is, the top-level caller workflow and up to three levels of reusable workflows. For example: `caller-workflow.yml` → `called-workflow-1.yml` → `called-workflow-2.yml` → `called-workflow-3.yml`.
+
+### Good For
 - Syncing many repos that are essentially built or developed in the same way.
 - Ensure certain steps are followed for a specific deployment type.
 - Implementing OIDC
