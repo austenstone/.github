@@ -26,4 +26,5 @@ jobs:
         id: azure-deploy
         with:
           app-name: ${{ inputs.app-name }}
+          slot-name: 'production'
           images: ${{ inputs.images }}
