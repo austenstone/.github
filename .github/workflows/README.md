@@ -2,17 +2,16 @@
 
 A workflow is a configurable automated process that will run one or more jobs. Workflows are defined by a YAML file checked in to your repository and will run when triggered by an event in your repository, or they can be triggered manually, or at a defined schedule.
 
-
-### [Composite Actions](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action)
-
-#### What?
-A composite action allows you to combine multiple workflow steps within one action. For example, you can use this feature to bundle together multiple run commands into an action, and then have a workflow that executes the bundled commands as a single step using that action. To see an example, check out "Creating a composite action".
-
 #### Why?
 - Eaier to maintain
 - Create workflows more quickly
 - Avoid duplication. DRY(don't repear yourself).
 - Build consistently across multiple, dozens, or even hundreds of repositories
+- Require specific workflows for specific deployments
+
+### [Composite Actions](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action)
+
+A composite action allows you to combine multiple workflow steps within one action. For example, you can use this feature to bundle together multiple run commands into an action, and then have a workflow that executes the bundled commands as a single step using that action. To see an example, check out "Creating a composite action".
 
 #### How?
 - Create a new workflow file and specify it runs `using: "composite"`.
@@ -24,16 +23,7 @@ A composite action allows you to combine multiple workflow steps within one acti
 
 ### [Reusable Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
 
-#### What?
-
 Rather than copying and pasting from one workflow to another, you can make workflows reusable. You and anyone with access to the reusable workflow can then call the reusable workflow from another workflow.
-
-#### Why?
-- Eaier to maintain
-- Create workflows more quickly
-- Avoid duplication. DRY(don't repear yourself).
-- Build consistently across multiple, dozens, or even hundreds of repositories
-- Require specific workflows for specific deployments
 
 #### How?
 - Modify the repo settings so the workflows are accessible to the rest of the org.
