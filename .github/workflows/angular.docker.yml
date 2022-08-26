@@ -7,10 +7,10 @@ on:
         default: "dist"
         required: false
         type: string
-    dockerhub-username:
-      default: ${{ github.event.repository.owner.login }}
-      required: false
-      type: string
+      dockerhub-username:
+        default: ${{ github.event.repository.owner.login }}
+        required: false
+        type: string
     outputs:
       tags:
         description: "The first output string"
