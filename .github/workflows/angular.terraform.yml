@@ -10,8 +10,11 @@ on:
         description: "The name of the resource"
         value: ${{ jobs.terraform.outputs.name }}
       api_key:
-        description: "The name of the resource"
+        description: "The api_key of the resource"
         value: ${{ jobs.terraform.outputs.api_key }}
+      app_name:
+        description: "The name of the app"
+        value: ${{ jobs.terraform.outputs.app_name }}
 
 jobs:
   terraform:
@@ -25,6 +28,7 @@ jobs:
       url: ${{ steps.terraform-outputs.outputs.url }}
       name: ${{ steps.terraform-outputs.outputs.name }}
       api_key: ${{ steps.terraform-outputs.outputs.api_key }}
+      app_name: ${{ steps.terraform-outputs.outputs.app_name }}
 
     steps:
       - uses: actions/checkout@v3
@@ -96,3 +100,5 @@ jobs:
           echo "::set-output name=url::$(terraform output -raw url)"
           echo "::set-output name=name::$(terraform output -raw name)"
           echo "::set-output name=api_key::$(terraform output -raw api_key)"
+          echo "::set-output name=app_name::$(terraform output -raw app_name)"
+
