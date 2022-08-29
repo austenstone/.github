@@ -24,6 +24,7 @@ jobs:
         run: |
           repos=${{ env.REPOS }}
           for repo in "${repos[@]}"; do
+            echo "Dispatch $repo > $WORKFLOW"
             gh workflow run --repo $repo $WORKFLOW
           done
         shell: bash
