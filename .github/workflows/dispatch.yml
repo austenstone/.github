@@ -20,7 +20,7 @@ jobs:
           ${{ inputs.repos }}
         )
     steps:
-      - name: "Dispatch Repos"
+      - name: "Repo Dispatch"
         run: |
           repos=${{ env.REPOS }}
           for repo in "${repos[@]}"; do
