@@ -1,4 +1,4 @@
-name: "Dispatch Updates"
+name: "On Push"
 
 on:
   push:
