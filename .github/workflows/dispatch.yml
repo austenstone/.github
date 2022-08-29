@@ -19,8 +19,6 @@ jobs:
         (
           ${{ inputs.repos }}
         )
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: "Dispatch Repos"
         run: |
@@ -30,4 +28,4 @@ jobs:
           done
         shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
