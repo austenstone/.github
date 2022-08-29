@@ -7,9 +7,9 @@ A workflow is a configurable automated process that will run one or more jobs. W
 - Create workflows more quickly
 - Avoid duplication. DRY(don't repeat yourself).
 - Build consistently across multiple, dozens, or even hundreds of repositories
-- Require specific workflows for specific deployments
 - Promotes best practices
 - Abstract away complexity
+- Require specific workflows for specific deployments
 
 ### [Composite Actions](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action)
 
