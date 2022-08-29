@@ -1,0 +1,15 @@
+name: "Dispatch Updates"
+
+on:
+  push:
+  workflow_dispatch:  
+
+jobs:
+  dispatch:
+    uses: ./.github/workflows/dispatch.yml
+    with:
+      workflow: build-test-deploy.yml
+      repos: |
+        austenstone/angular-codespace
+        austenstone/reddit-youtube
+    secrets: inherit

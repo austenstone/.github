@@ -1,0 +1,36 @@
+name: Docker Build & Push
+description: "Builds and pushes a Docker image to Docker Hub & GitHub Package Registry"
+
+inputs:
+  images:
+    description: 'images'
+    default: ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}
+    required: false
+outputs:
+  tags:
+    description: "The image tags"
+    value: ${{ steps.meta.outputs.tags }}
+  labels:
+    description: "The image labels"
+    value: ${{ steps.meta.outputs.labels }}
+
+runs:
+  using: "composite"
+
+  steps:
+    - uses: docker/metadata-action@v4
+      id: meta
+      with:
+        tags: |
+          type=schedule
+          type=ref,event=branch
+          type=ref,event=tag
+          type=ref,event=pr
+          type=sha,format=long
+        images: ${{ inputs.images }}
+    - uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}

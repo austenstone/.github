@@ -1,0 +1,32 @@
+name: "Dispatch"
+
+on:
+  workflow_call:
+    inputs:
+      repos:
+        required: true
+        type: string
+      workflow:
+        required: true
+        type: string
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    env:
+      WORKFLOW: ${{ inputs.workflow }}
+      REPOS: |
+        (
+          ${{ inputs.repos }}
+        )
+    steps:
+      - name: "Repo Dispatch"
+        run: |
+          repos=${{ env.REPOS }}
+          for repo in "${repos[@]}"; do
+            echo "Dispatch $repo > $WORKFLOW"
+            gh workflow run --repo $repo $WORKFLOW
+          done
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
