@@ -20,10 +20,11 @@ jobs:
           ${{ inputs.repos }}
         )
     steps:
-      - name: "Dispatch Repos"
+      - name: "Repo Dispatch"
         run: |
           repos=${{ env.REPOS }}
           for repo in "${repos[@]}"; do
+            echo "Dispatch $repo > $WORKFLOW"
             gh workflow run --repo $repo $WORKFLOW
           done
         shell: bash
