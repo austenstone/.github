@@ -1,0 +1,20 @@
+name: Defaults
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./
+
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Hello World!'
+      - run: echo $pwd
+      - run: ps -p $$
+    

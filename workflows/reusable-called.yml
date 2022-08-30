@@ -1,0 +1,17 @@
+name: Reusable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      username:
+        default: ${{ github.actor }}
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run a one-line script
+        run: echo Hello, ${{ inputs.username }}!
