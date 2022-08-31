@@ -55,7 +55,7 @@ jobs:
 
   azure-deploy-docker:
     name: ☁️🐳
-    if: needs.terraform.outputs.api_key && github.ref == 'refs/heads/main'
+    if: 0 && needs.terraform.outputs.api_key && github.ref == 'refs/heads/main'
     needs: [terraform]
     uses: ./.github/workflows/angular.azure.web.app.deploy.yml
     with:
