@@ -45,6 +45,7 @@ jobs:
           name: ${{ inputs.artifact-name }}
           path: dist/${{ github.event.repository.name }}
       - uses: austenstone/.github/.github/actions/docker-build-push@main
+        id: meta
         with:
           images: ${{ inputs.dockerhub-username }}/${{ github.event.repository.name }}
 
@@ -70,6 +71,7 @@ jobs:
           name: ${{ inputs.artifact-name }}
           path: dist/${{ github.event.repository.name }}
       - uses: austenstone/.github/.github/actions/docker-build-push@main
+        id: meta
   # trivy:
   #   needs: [docker]
   #   uses: ./.github/workflows/trivy.yml

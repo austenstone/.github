@@ -9,17 +9,17 @@ inputs:
 outputs:
   tags:
     description: "The image tags"
-    value: ${{ steps.meta.outputs.tags }}
+    value: ${{ steps._meta.outputs.tags }}
   labels:
     description: "The image labels"
-    value: ${{ steps.meta.outputs.labels }}
+    value: ${{ steps._meta.outputs.labels }}
 
 runs:
   using: "composite"
 
   steps:
     - uses: docker/metadata-action@v4
-      id: meta
+      id: _meta
       with:
         tags: |
           type=schedule
@@ -32,5 +32,5 @@ runs:
       with:
         context: .
         push: ${{ github.event_name != 'pull_request' }}
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: ${{ steps._meta.outputs.tags }}
+        labels: ${{ steps._meta.outputs.labels }}
