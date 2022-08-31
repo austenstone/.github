@@ -8,6 +8,7 @@ A workflow is a configurable automated process that will run one or more jobs. W
 - Avoid duplication. DRY(don't repeat yourself).
 - Build consistently across multiple, dozens, or even hundreds of repositories
 - Promotes best practices
+- Innersource properly across an organization
 - Abstract away complexity
 - Require specific workflows for specific deployments
 
