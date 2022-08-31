@@ -119,6 +119,13 @@ You can nest reusable workflows up to four levels deep. Loops are not permitted.
 
 that is, the top-level caller workflow and up to three levels of reusable workflows. For example: `caller-workflow.yml` → `called-workflow-1.yml` → `called-workflow-2.yml` → `called-workflow-3.yml`.
 
+#### Using OpenID Connect with reusable workflows
+
+You can use reusable workflows with OIDC to standardize and security harden your deployment steps.
+
+- [Using OpenID Connect with reusable workflows](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/using-openid-connect-with-reusable-workflows).
+- [About security hardening with OpenID Connect](https://www.github.wiki/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#overview-of-openid-connect)
+
 ### Good For
 - Syncing many repos that are essentially built or developed in the same way.
 - Ensure certain steps are followed for a specific deployment type.
