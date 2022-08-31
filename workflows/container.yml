@@ -1,7 +1,7 @@
 name: Container
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ main ]
 jobs:
   container-test-job:
     runs-on: ubuntu-latest

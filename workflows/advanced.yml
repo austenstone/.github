@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
   pull_request:
   push:
-    branches: [ $default-branch ]
+    branches: [ main ]
 
 permissions:
   contents: read
