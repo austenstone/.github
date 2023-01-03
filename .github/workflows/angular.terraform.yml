@@ -99,8 +99,7 @@ jobs:
       - name: Terraform Outputs
         id: terraform-outputs
         run: |
-          echo "::set-output name=url::$(terraform output -raw url)"
-          echo "::set-output name=name::$(terraform output -raw name)"
-          echo "::set-output name=api_key::$(terraform output -raw api_key)"
-          echo "::set-output name=app_name::$(terraform output -raw app_name)"
-
+          echo "{url}={$(terraform output -raw url)}" >> $GITHUB_OUTPUT
+          echo "{name}={$(terraform output -raw name)}" >> $GITHUB_OUTPUT
+          echo "{api_key}={$(terraform output -raw api_key)}" >> $GITHUB_OUTPUT
+          echo "{app_name}={$(terraform output -raw app_name)}" >> $GITHUB_OUTPUT
