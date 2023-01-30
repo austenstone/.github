@@ -30,3 +30,8 @@ jobs:
       - run: ./vendor/bin/psalm --version
       - run: ./vendor/bin/psalm --init
       - run: ./vendor/bin/psalm --output-format=github --taint-analysis --report=${{ inputs.sarif_file_name }} $*
+      
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: inputs.sarif_file_name
