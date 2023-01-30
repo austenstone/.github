@@ -16,9 +16,9 @@ jobs:
 				uses: andstor/file-existence-action@v1
 				with:
 					files: "assets/${{ env.URL }}"
-					
+
 			- run: composer require --dev vimeo/psalm
-  			if: steps.check_files.outputs.files_exists == 'true'
-				
+			if: steps.check_files.outputs.files_exists == 'true'
+
 			- run: ./vendor/bin/psalm --init
 			- run: ./vendor/bin/psalm
