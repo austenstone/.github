@@ -22,6 +22,7 @@ jobs:
           files: composer.json
       - if: steps.check_files.outputs.files_exists == 'true'
         run: |
+          COMPOSER_COMMAND="composer install --no-scripts --no-progress"
           echo "::group::$COMPOSER_COMMAND"
           $COMPOSER_COMMAND
           echo "::endgroup::"
