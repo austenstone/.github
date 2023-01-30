@@ -2,6 +2,11 @@ name: Psalm Security Scan
 
 on:
   workflow_call:
+    inputs:
+      username:
+        default: 'results.sarif'
+        required: true
+        type: string
 
 jobs:
   psalm:
@@ -23,5 +28,6 @@ jobs:
           echo "::endgroup::"
 
       - run: composer require --dev vimeo/psalm
+      - run: ./vendor/bin/psalm --version
       - run: ./vendor/bin/psalm --init
-      - run: ./vendor/bin/psalm
+      - run: ./vendor/bin/psalm --output-format=github --taint-analysis --report=${{ inputs.results }} $*
