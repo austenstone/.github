@@ -3,9 +3,8 @@ name: Psalm Security Scan
 on:
   workflow_call:
     inputs:
-      username:
+      sarif_file_name:
         default: 'results.sarif'
-        required: true
         type: string
 
 jobs:
@@ -30,4 +29,4 @@ jobs:
       - run: composer require --dev vimeo/psalm
       - run: ./vendor/bin/psalm --version
       - run: ./vendor/bin/psalm --init
-      - run: ./vendor/bin/psalm --output-format=github --taint-analysis --report=${{ inputs.results }} $*
+      - run: ./vendor/bin/psalm --output-format=github --taint-analysis --report=${{ inputs.sarif_file_name }} $*
