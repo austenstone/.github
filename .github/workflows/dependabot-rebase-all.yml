@@ -15,7 +15,7 @@ jobs:
     steps:
       - run: |
           gh search prs \
-            --repo austenstone/action-typescript \
+            --repo ${{ inputs.repo }} \
             --state open \
             --label dependencies \
             --limit 200 \
