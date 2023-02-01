@@ -11,6 +11,9 @@ on:
       token:
         default: ${{ github.token }}
         type: string
+      action:
+        default: rebase
+        type: string
 
 jobs:
   dependabot:
@@ -32,6 +35,6 @@ jobs:
             --limit 200 \
             --json "url" --jq ".[] | .url" \
           | xargs -n 1 -I{} \
-            gh pr comment -b "@dependabot rebase" {}
+            gh pr comment -b "@dependabot ${{ inputs.action }}" {}
         env:
           GH_TOKEN: ${{ github.token || inputs.token }}
