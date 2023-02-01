@@ -1,0 +1,27 @@
+name: Dependabot Rebase All
+
+on:
+  workflow_call:
+    inputs:
+      username:
+        default: 'octocat'
+        type: string
+			username:
+				default: 'octocat'
+				type: string
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh search prs \
+            --repo austenstone/action-typescript \
+            --state open \
+            --label dependencies \
+            --limit 200 \
+            --json "url" --jq ".[] | .url" \
+          | xargs -n 1 -I{} \
+            gh pr comment -b "@dependabot rebase" {}
+        env:
+          GH_TOKEN: ${{ github.token }}
