@@ -8,6 +8,9 @@ on:
         type: string
       owner:
         type: string
+      token:
+        default: ${{ github.token }}
+        type: string
 
 jobs:
   rebase:
@@ -31,4 +34,4 @@ jobs:
           | xargs -n 1 -I{} \
             gh pr comment -b "@dependabot rebase" {}
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ inputs.token }}
