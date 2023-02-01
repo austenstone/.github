@@ -3,12 +3,11 @@ name: Dependabot Rebase All
 on:
   workflow_call:
     inputs:
-      username:
-        default: 'octocat'
+      repo:
+        default: ${{ github.repository }}
         type: string
-			username:
-				default: 'octocat'
-				type: string
+      owner:
+        type: string
 
 jobs:
   rebase:
