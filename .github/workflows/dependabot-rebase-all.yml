@@ -16,7 +16,7 @@ jobs:
       - name: Get Scope
         id: scope
         run: |
-          if [ ! -n "${{ inputs.owner }}" ]; then
+          if [ -n "${{ inputs.owner }}" ]; then
             echo "SCOPE=--owner ${{ inputs.owner }}" >> $GITHUB_OUTPUT
           else
             echo "SCOPE=--repo ${{ inputs.repo }}" >> $GITHUB_OUTPUT
