@@ -34,4 +34,4 @@ jobs:
           | xargs -n 1 -I{} \
             gh pr comment -b "@dependabot rebase" {}
         env:
-          GH_TOKEN: ${{ inputs.token }}
+          GH_TOKEN: ${{ github.token || inputs.token }}
