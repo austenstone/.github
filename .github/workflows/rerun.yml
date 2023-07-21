@@ -1,6 +1,11 @@
 name: Re-run failed jobs
 
 on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        default: ${{ github.run_id }}
+        type: string
   workflow_call:
     inputs:
       run_id:
