@@ -8,7 +8,7 @@ on:
         type: string
 
 jobs:
-  dependabot:
+  rerun:
     runs-on: ubuntu-latest
     steps:
       - run: gh run rerun ${{ github.run_id }} --failed
