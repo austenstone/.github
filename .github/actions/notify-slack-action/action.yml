@@ -36,7 +36,6 @@ inputs:
     required: false
   slack_webhook_url:
     description: 'slack_webhook_url'
-    default: ${{ secrets.ACTION_MONITORING_SLACK || secrets.SLACK_WEBHOOK_URL }}
     required: false
 
 runs:
@@ -57,4 +56,4 @@ runs:
         mention_groups: ${{ inputs.mention_groups }}
         mention_groups_when: ${{ inputs.mention_groups_when }}
       env:
-        SLACK_WEBHOOK_URL: ${{ inputs.slack_webhook_url }}
+        SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK || secrets.SLACK_WEBHOOK_URL || inputs.slack_webhook_url }}
