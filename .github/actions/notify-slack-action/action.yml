@@ -1,0 +1,60 @@
+name: Slack Job Status Notification
+description: "Sends a Slack notification for a job status"
+
+inputs:
+  notify_when:
+    description: 'notify_when'
+    default: 'failure'
+    required: false
+  notification_title:
+    description: 'notification_title'
+    default: '{workflow} has {status_message}'
+    required: false
+  message_format:
+    description: 'message_format'
+    default: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
+    required: false
+  footer:
+    description: 'footer'
+    default: 'Linked to Repo <{repo_url}|{repo}>'
+    required: false
+  mention_users:
+    description: 'mention_users'
+    default: 'U02TGLRPJR0' # To get the Slack Member IDs, open the User profile you want to mention. Click More and Copy Member ID.
+    required: false
+  mention_users_when:
+    description: 'mention_users_when'
+    default: 'failure,warnings'
+    required: false
+  mention_groups:
+    description: 'mention_groups'
+    default: ''
+    required: false
+  mention_groups_when:
+    description: 'mention_groups_when'
+    default: 'failure,warnings'
+    required: false
+  slack_webhook_url:
+    description: 'slack_webhook_url'
+    default: ${{ secrets.ACTION_MONITORING_SLACK || secrets.SLACK_WEBHOOK_URL }}
+    required: false
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Report Status
+      if: always()
+      uses: ravsamhq/notify-slack-action@v1
+      with:
+        status: ${{ job.status }} # required
+        notify_when: ${{ inputs.notify_when }}
+        notification_title: ${{ inputs.notification_title }}
+        message_format: ${{ inputs.message_format }}
+        footer: ${{ inputs.footer }}
+        mention_users: ${{ inputs.mention_users }}
+        mention_users_when: ${{ inputs.mention_users_when }}
+        mention_groups: ${{ inputs.mention_groups }}
+        mention_groups_when: ${{ inputs.mention_groups_when }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.slack_webhook_url }}
