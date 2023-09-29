@@ -1,0 +1,12 @@
+name: Prevent Re-run
+description: Prevents re-run of a workflow
+
+runs:
+  using: "composite"
+
+  steps:
+    - if: github.run_attempt != '1'
+      shell: bash
+      run: |
+        gh api -X POST /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/cancel
+        sleep 60
