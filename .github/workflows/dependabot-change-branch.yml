@@ -1,5 +1,8 @@
 name: Change Dependabot Branch Base 🔄
-on: pull_request
+
+on:
+  workflow_call:
+  pull_request:
 
 permissions:
   pull-requests: write
@@ -9,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout
+      - uses: actions/checkout@v4
 
       - name: Truncate branch name
         id: truncate
