@@ -21,6 +21,7 @@ jobs:
 
       - name: Create and push new branch
         run: |
+          git fetch origin
           git checkout -b "${{ steps.truncate.outputs.truncated }}"
           git push origin "${{ steps.truncate.outputs.truncated }}"
         
