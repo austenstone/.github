@@ -20,20 +20,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Truncate branch name
-        id: truncate
+      - id: truncate
         run: |
           BRANCH_NAME="${{ github.head_ref }}"
           TRUNCATED=${BRANCH_NAME:0:${{ inputs.length }}}
           echo "truncated=${{ inputs.prefix }}$TRUNCATED" >> $GITHUB_OUTPUT
 
-      - name: Create and push new branch
-        run: |
-          git fetch origin
+      - run: |
           git checkout -b "${{ steps.truncate.outputs.truncated }}"
           git push origin "${{ steps.truncate.outputs.truncated }}"
         
-      - name: Update PR base branch
-        run: gh pr edit "${{ github.event.pull_request.html_url }}" --base "${{ steps.truncate.outputs.truncated }}"
+      - run: gh pr edit "${{ github.event.pull_request.html_url }}" --base "${{ steps.truncate.outputs.truncated }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
