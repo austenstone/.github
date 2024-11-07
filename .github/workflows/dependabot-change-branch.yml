@@ -27,6 +27,7 @@ jobs:
           echo "truncated=${{ inputs.prefix }}$TRUNCATED" >> $GITHUB_OUTPUT
 
       - run: |
+          git branch
           git checkout -b "${{ steps.truncate.outputs.truncated }}"
           git push origin "${{ steps.truncate.outputs.truncated }}"
         
