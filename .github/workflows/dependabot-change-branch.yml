@@ -4,10 +4,6 @@ on:
   workflow_call:
   # pull_request:
 
-permissions:
-  pull-requests: write
-  contents: write
-
 jobs:
   dependabot:
     runs-on: ubuntu-latest
