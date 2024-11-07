@@ -41,4 +41,4 @@ jobs:
             --body "${{ github.event.pull_request.body }}" \
             --base "${{ github.event.pull_request.base.ref }}" \
             --head "${{ steps.truncate.outputs.truncated }}"
-            --add-label ${{ join(github.event.pull_request.labels.*.name, ',') }}
+            --label ${{ join(github.event.pull_request.labels.*.name, ',') }}
