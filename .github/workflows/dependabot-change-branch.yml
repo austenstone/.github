@@ -1,4 +1,4 @@
-name: Dependabot auto-approve
+name: Change Dependabot Branch Base 🔄
 on: pull_request
 
 permissions:
@@ -7,15 +7,24 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'owner/my_repo'
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
-      - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Approve a PR
-        run: gh pr review --approve "$PR_URL"
+      - name: Checkout repository
+        uses: actions/checkout
+
+      - name: Truncate branch name
+        id: truncate
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          TRUNCATED=${BRANCH_NAME:0:126}
+          echo "truncated=$TRUNCATED" >> $GITHUB_OUTPUT
+
+      - name: Create and push new branch
+        run: |
+          git checkout -b "${{ steps.truncate.outputs.truncated }}"
+          git push origin "${{ steps.truncate.outputs.truncated }}"
+        
+      - name: Update PR base branch
+        run: gh pr edit "${{ github.event.pull_request.html_url }}" --base "${{ steps.truncate.outputs.truncated }}"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
