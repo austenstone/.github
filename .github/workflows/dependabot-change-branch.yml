@@ -30,6 +30,14 @@ jobs:
           git checkout -b "${{ steps.truncate.outputs.truncated }}"
           git push origin "${{ steps.truncate.outputs.truncated }}"
         
-      - run: gh pr edit "${{ github.event.pull_request.html_url }}" --base "${{ steps.truncate.outputs.truncated }}"
+      - name: Close existing PR and create new one
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr close "${{ github.event.pull_request.number }}"
+          gh pr create \
+            --title "${{ github.event.pull_request.title }}" \
+            --body "${{ github.event.pull_request.body }}" \
+            --base "${{ github.event.pull_request.base.ref }}" \
+            --head "${{ steps.truncate.outputs.truncated }}"
+            --add-label ${{ join(github.event.pull_request.labels.*.name, ',') }}
