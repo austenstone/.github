@@ -2,7 +2,7 @@ name: Change Dependabot Branch Base 🔄
 
 on:
   workflow_call:
-  pull_request:
+  # pull_request:
 
 permissions:
   pull-requests: write
