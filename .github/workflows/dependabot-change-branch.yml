@@ -2,6 +2,15 @@ name: Change Dependabot Branch Base 🔄
 
 on:
   workflow_call:
+    inputs:
+      length:
+        description: 'The length of the branch name to truncate to'
+        default: 125
+        type: number
+      prefix:
+        description: 'The prefix to add to the truncated branch name'
+        default: ''
+        type: string
   # pull_request:
 
 jobs:
@@ -15,8 +24,8 @@ jobs:
         id: truncate
         run: |
           BRANCH_NAME="${{ github.head_ref }}"
-          TRUNCATED=${BRANCH_NAME:0:126}
-          echo "truncated=$TRUNCATED" >> $GITHUB_OUTPUT
+          TRUNCATED=${BRANCH_NAME:0:${{ inputs.length }}}
+          echo "truncated=${{ inputs.prefix }}$TRUNCATED" >> $GITHUB_OUTPUT
 
       - name: Create and push new branch
         run: |
