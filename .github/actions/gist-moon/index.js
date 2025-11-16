@@ -10,28 +10,6 @@ const GITHUB_TOKEN = getInput("github_token", { required: true });
 const GIST_DESCRIPTION = getInput("description");
 const FILENAME = getInput("filename") || "moon.txt";
 
-async function fetchMoonData(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const dateString = `${year}-${month}-${day}`;
-    const apiUrl = `https://aa.usno.navy.mil/api/rstt/oneday?date=${dateString}&coords=${LATITUDE},${LONGITUDE}&tz=${TIMEZONE}`;
-
-    const response = await fetch(apiUrl);
-    
-    if (!response.ok) {
-        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
-    }
-    
-    const data = await response.json();
-    
-    if (data.error) {
-        throw new Error(data.error);
-    }
-    
-    return data;
-}
-
 function renderMoonGraphic(phaseName) {
     const moon = {
         "New Moon": [
@@ -88,9 +66,25 @@ function renderMoonGraphic(phaseName) {
 async function run() {
     try {
         info(`Fetching moon data for coordinates: ${LATITUDE}, ${LONGITUDE} (TZ: ${TIMEZONE})`);
-
         const date = new Date();
-        const data = await fetchMoonData(date);
+        
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const dateString = `${year}-${month}-${day}`;
+        const apiUrl = `https://aa.usno.navy.mil/api/rstt/oneday?date=${dateString}&coords=${LATITUDE},${LONGITUDE}&tz=${TIMEZONE}`;
+
+        const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.error) {
+            throw new Error(data.error);
+        }
 
         const moonData = data.properties?.data;
         if (!moonData) {
