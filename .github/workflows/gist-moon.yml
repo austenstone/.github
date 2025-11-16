@@ -1,0 +1,17 @@
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  update-gist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: austenstone/.github/.github/actions/gist-moon@main
+        with:
+          gist_id: 9d0b0daf67c6ad32a9510ca2fb442ead
+          github_token: ${{ secrets.GH_TOKEN }}
+          filename: 'moon.txt'
+          latitude: '26.118461'
+          longitude: '-80.158453'
+          timezone: '-5'

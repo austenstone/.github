@@ -1,0 +1,43 @@
+name: gist-moon
+author: Austen Stone
+description: Update a gist to contain the current moon phase
+
+branding:
+  icon: "moon"
+  color: "red"
+
+inputs:
+  gist_id:
+    description: 'GitHub Gist ID to update'
+    required: true
+  github_token:
+    description: 'GitHub token with gist scope'
+    required: true
+  filename:
+    description: 'Filename in the gist to update'
+    required: false
+    default: 'moon.txt'
+  latitude:
+    description: 'Latitude coordinate (decimal degrees)'
+    required: false
+    default: '26.118461'
+  longitude:
+    description: 'Longitude coordinate (decimal degrees)'
+    required: false
+    default: '-80.158453'
+  timezone:
+    description: 'Timezone offset from UTC (e.g., -5 for EST)'
+    required: false
+    default: '-5'
+
+outputs:
+  phase:
+    description: 'Current moon phase name'
+  illumination:
+    description: 'Moon illumination percentage'
+  date:
+    description: 'Date of moon data'
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
