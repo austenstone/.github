@@ -7,19 +7,16 @@ const LONGITUDE = getInput("longitude") || "-80.158453";
 const TIMEZONE = getInput("timezone") || "-5";
 const GIST_ID = getInput("gist_id", { required: true });
 const GITHUB_TOKEN = getInput("github_token", { required: true });
+const GIST_DESCRIPTION = getInput("description");
 const FILENAME = getInput("filename") || "moon.txt";
 
-function getApiDate() {
-    const d = new Date();
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-}
-
 async function fetchMoonData(date) {
-    const apiUrl = `https://aa.usno.navy.mil/api/rstt/oneday?date=${date}&coords=${LATITUDE},${LONGITUDE}&tz=${TIMEZONE}`;
-    
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
+    const apiUrl = `https://aa.usno.navy.mil/api/rstt/oneday?date=${dateString}&coords=${LATITUDE},${LONGITUDE}&tz=${TIMEZONE}`;
+
     const response = await fetch(apiUrl);
     
     if (!response.ok) {
@@ -91,8 +88,8 @@ function renderMoonGraphic(phaseName) {
 async function run() {
     try {
         info(`Fetching moon data for coordinates: ${LATITUDE}, ${LONGITUDE} (TZ: ${TIMEZONE})`);
-        
-        const date = getApiDate();
+
+        const date = new Date();
         const data = await fetchMoonData(date);
 
         const moonData = data.properties?.data;
@@ -107,11 +104,11 @@ async function run() {
         // Set outputs for GitHub Actions
         setOutput("phase", phase);
         setOutput("illumination", illumination);
-        setOutput("date", date);
+        setOutput("date", dateString);
 
         // 5x60 output
         const output = [
-            `CURRENT MOON (${date})`.padEnd(60),
+            `CURRENT MOON (${dateString})`.padEnd(60),
             graphic[0].padEnd(60),
             graphic[1].padEnd(60),
             graphic[2].padEnd(60),
@@ -127,7 +124,7 @@ async function run() {
         
         await octokit.request('PATCH /gists/{gist_id}', {
             gist_id: GIST_ID,
-            description: `Current Moon Phase - ${phase} (${illumination})`,
+            description: GIST_DESCRIPTION || `${phase} (${illumination})`,
             files: {
                 [FILENAME]: {
                     content: moonOutput

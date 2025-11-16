@@ -29,6 +29,10 @@ inputs:
     description: 'Timezone offset from UTC (e.g., -5 for EST)'
     required: false
     default: '-5'
+  gist_description:
+    description: 'Description for the gist'
+    required: false
+    default: 'Fort Lauderdale Moon Phase'
 
 outputs:
   phase:
