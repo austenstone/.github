@@ -31651,8 +31651,8 @@ const LATITUDE = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("latitu
 const LONGITUDE = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("longitude") || "-80.158453";
 const TIMEZONE = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("timezone") || "-5";
 const GIST_ID = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("gist_id", { required: true });
+const GIST_DESCRIPTION = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("gist_description");
 const GITHUB_TOKEN = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("github_token", { required: true });
-const GIST_DESCRIPTION = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("description");
 const FILENAME = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("filename") || "moon.txt";
 
 function renderMoonGraphic(phaseName) {
@@ -31768,9 +31768,6 @@ async function run() {
                 [FILENAME]: {
                     content: moonOutput
                 }
-            },
-            headers: {
-                'X-GitHub-Api-Version': '2022-11-28'
             }
         });
         
