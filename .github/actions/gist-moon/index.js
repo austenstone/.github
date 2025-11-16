@@ -6,8 +6,8 @@ const LATITUDE = getInput("latitude") || "26.118461";
 const LONGITUDE = getInput("longitude") || "-80.158453";
 const TIMEZONE = getInput("timezone") || "-5";
 const GIST_ID = getInput("gist_id", { required: true });
+const GIST_DESCRIPTION = getInput("gist_description");
 const GITHUB_TOKEN = getInput("github_token", { required: true });
-const GIST_DESCRIPTION = getInput("description");
 const FILENAME = getInput("filename") || "moon.txt";
 
 function renderMoonGraphic(phaseName) {
@@ -123,9 +123,6 @@ async function run() {
                 [FILENAME]: {
                     content: moonOutput
                 }
-            },
-            headers: {
-                'X-GitHub-Api-Version': '2022-11-28'
             }
         });
         
