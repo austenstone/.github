@@ -7,7 +7,11 @@
   "scripts": {
     "build": "ncc build index.js"
   },
-  "keywords": ["github-action", "moon", "astronomy"],
+  "keywords": [
+    "github-action",
+    "moon",
+    "astronomy"
+  ],
   "author": "Austen Stone",
   "license": "MIT",
   "dependencies": {
@@ -16,5 +20,8 @@
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.1"
+  },
+  "overrides": {
+    "undici": "^6.27.0"
   }
 }
